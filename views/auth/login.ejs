@@ -7,6 +7,28 @@
     <%- include('../includes/navigation.ejs') %>
 
     <main>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Email Simulation</h2>
+                </div>
+                <div class="modal-body">
+                    <% if (modalMessage) { %>
+                    <p><%= modalMessage %></p>
+                    <% } %>
+                </div>
+                <div class="modal-footer">
+                    <% if (userEmail) { %>
+                    <h3><%= userEmail %></h3>
+                    <% } %>
+                </div>
+            </div>
+
+        </div>
         <% if (errorMessage) { %>
         <div class="user-message user-message--error"><%= errorMessage %> </div>
         <% } %>
@@ -22,5 +44,8 @@
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn" type="submit">Login</button>
         </form>
+        <div class="centered">
+            <a href="/reset">Reset Password</a>
+        </div>
     </main>
     <%- include('../includes/end.ejs') %>
