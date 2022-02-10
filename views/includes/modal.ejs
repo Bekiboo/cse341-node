@@ -1,0 +1,21 @@
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Email Simulation</h2>
+        </div>
+        <div class="modal-body">
+            <% if (typeof modalMessage !== 'undefined' && modalMessage) { %>
+            <p><%- modalMessage %></p>
+            <% } %>
+        </div>
+        <div class="modal-footer">
+            <% if (typeof userEmail !== 'undefined' && userEmail) { %>
+            <h3><%= userEmail %></h3>
+            <% } %>
+        </div>
+    </div>
+</div>
