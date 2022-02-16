@@ -1,4 +1,5 @@
 const crypto = require('crypto')
+const path = require('path')
 
 const bcrypt = require('bcryptjs/dist/bcrypt')
 // const nodemailer = require('nodemailer')
@@ -199,6 +200,16 @@ exports.postReset = (req, res, next) => {
       return res.redirect('/reset')
     }
     const token = buffer.toString('hex')
+
+    const protocol = req.protocol
+    console.log(protocol)
+
+    const urlPath = req.get('host')
+    console.log(urlPath)
+
+    const fullUrl = `${protocol}://${urlPath}/reset/${token}`
+    console.log(fullUrl)
+
     User.findOne({ email: req.body.email })
       .then((user) => {
         if (!user) {
@@ -215,7 +226,7 @@ exports.postReset = (req, res, next) => {
           'modal',
           `
         You requested a password reset<br>
-        Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password
+        Click this <a href="${fullUrl}">link</a> to set a new password
         `
         )
         res.redirect('/')
