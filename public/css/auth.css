@@ -4,3 +4,10 @@
     margin: auto;
     display: block;
 }
+
+.reset a,
+.reset a:visited {
+    color: white;
+    text-decoration: none;
+    font-size: .8rem;
+}

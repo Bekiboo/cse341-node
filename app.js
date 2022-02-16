@@ -1,5 +1,5 @@
 const path = require('path')
-const PATH = process.env.PORT || 3000
+const PATH = process.env.PORT || 5500
 
 const express = require('express')
 const session = require('express-session')
@@ -8,6 +8,8 @@ const mongoose = require('mongoose')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const csrf = require('csurf')
 const flash = require('connect-flash')
+const favicon = require('serve-favicon')
+
 
 const errorController = require('./controllers/error')
 const User = require('./models/user')
@@ -29,6 +31,8 @@ app.set('views', 'views')
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
 const authRoutes = require('./routes/auth')
+
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))

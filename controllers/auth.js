@@ -14,8 +14,6 @@ const { ResultWithContext } = require('express-validator/src/chain')
 //   }
 // }))
 
-// Maybe use MailChimp instead of Sendgrid
-
 exports.getLogin = (req, res, next) => {
   let message = req.flash('error')
   message.length > 0 ? (message = message[0]) : (message = null)
