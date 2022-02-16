@@ -21,7 +21,7 @@ router.patch('/cart-add/:productId', isAuth, shopController.addOneToCart)
 
 router.patch('/cart-remove/:productId', isAuth, shopController.removeOneFromCart)
 
-router.post('/cart-delete-item', isAuth, shopController.postCartDeleteProduct);
+router.delete('/cart-delete-item/:productId', isAuth, shopController.cartDeleteProduct);
 
 router.post('/create-order', isAuth, shopController.postOrder);
 

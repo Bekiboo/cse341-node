@@ -92,17 +92,46 @@ exports.postCart = (req, res, next) => {
     })
 }
 
-exports.postCartDeleteProduct = (req, res, next) => {
-  const prodId = req.body.productId
+exports.cartDeleteProduct = (req, res, next) => {
+  const prodId = req.params.productId
   req.user
     .removeFromCart(prodId)
     .then((result) => {
-      res.redirect('/cart')
+      res.status(200).json({message: 'success'})
     })
     .catch((err) => {
-      const error = new Error(err)
-      error.httpStatusCode = 500
-      return next(error)
+      res.status(500).json({message: 'Deleting product failed'})
+    })
+}
+
+exports.addOneToCart = (req, res, next) => {
+  const prodId = req.params.productId
+  Product.findById(prodId)
+    .then((product) => {
+      req.user.addToCart(product)
+      res
+        .status(200)
+        .json({ message: 'success', quantity: req.user.getQuantity(product) })
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Adding product failed' })
+    })
+}
+
+exports.removeOneFromCart = (req, res, next) => {
+  const prodId = req.params.productId
+  Product.findById(prodId)
+    .then((product) => {
+      let qty = req.user.getQuantity(product)
+      if (qty > 0) {
+        req.user.removeOneFromCart(product)
+      }
+      res
+        .status(200)
+        .json({ message: 'success', quantity: req.user.getQuantity(product) })
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Removing product failed' })
     })
 }
 
@@ -149,33 +178,5 @@ exports.getOrders = (req, res, next) => {
       const error = new Error(err)
       error.httpStatusCode = 500
       return next(error)
-    })
-}
-
-exports.addOneToCart = (req, res, next) => {
-  const prodId = req.params.productId
-  Product.findById(prodId)
-    .then((product) => {
-      req.user.addToCart(product)
-      res
-        .status(200)
-        .json({ message: 'success', quantity: req.user.getQuantity(product) })
-    })
-    .catch((err) => {
-      res.status(500).json({ message: 'Adding product failed' })
-    })
-}
-
-exports.removeOneFromCart = (req, res, next) => {
-  const prodId = req.params.productId
-  Product.findById(prodId)
-    .then((product) => {
-      req.user.removeOneFromCart(product)
-      res
-        .status(200)
-        .json({ message: 'success', quantity: req.user.getQuantity(product) })
-    })
-    .catch((err) => {
-      res.status(500).json({ message: 'Removing product failed' })
     })
 }
