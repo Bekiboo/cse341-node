@@ -14,6 +14,7 @@ body {
 main {
   padding: 1rem;
   margin: auto;
+  color: white;
 }
 
 form {
@@ -172,6 +173,7 @@ form {
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   background-color: white;
+  color: #333333;
 }
 
 .card__header,
@@ -191,7 +193,9 @@ form {
 }
 
 .card__image img {
+  height: 16rem;
   width: 100%;
+  object-fit: cover;
 }
 
 .card__actions {
@@ -319,6 +323,7 @@ form {
 /* Modal Body */
 .modal-body {
   padding: 2px 16px;
+  color: #333333;
 }
 
 /* Modal Footer */
