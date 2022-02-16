@@ -10,12 +10,19 @@
 
 .cart__item {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
   color: #333333;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .cart__item {
+    flex-direction: row;
+  }
 }
 
 .cart__item h1,

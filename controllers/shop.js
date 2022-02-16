@@ -151,3 +151,31 @@ exports.getOrders = (req, res, next) => {
       return next(error)
     })
 }
+
+exports.addOneToCart = (req, res, next) => {
+  const prodId = req.params.productId
+  Product.findById(prodId)
+    .then((product) => {
+      req.user.addToCart(product)
+      res
+        .status(200)
+        .json({ message: 'success', quantity: req.user.getQuantity(product) })
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Adding product failed' })
+    })
+}
+
+exports.removeOneFromCart = (req, res, next) => {
+  const prodId = req.params.productId
+  Product.findById(prodId)
+    .then((product) => {
+      req.user.removeOneFromCart(product)
+      res
+        .status(200)
+        .json({ message: 'success', quantity: req.user.getQuantity(product) })
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Removing product failed' })
+    })
+}
